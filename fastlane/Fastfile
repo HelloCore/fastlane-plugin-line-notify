@@ -1,3 +1,6 @@
 lane :test do
-  line_notify
+  line_notify(
+      access_token: 'Your Access Token',
+      message: 'Hello World'
+    )
 end
