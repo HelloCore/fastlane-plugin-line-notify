@@ -10,6 +10,8 @@ This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To 
 fastlane add_plugin line_notify
 ```
 
+You can generate access token from **My Page** https://notify-bot.line.me/my/
+
 ## About line_notify
 
 To be able to send message to Line Notify
