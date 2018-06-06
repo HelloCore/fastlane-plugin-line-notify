@@ -5,17 +5,17 @@ module Fastlane
   module Actions
     class LineNotifyAction < Action
       def self.run(params)
-        api_token = options[:api_token]
+        
+        access_token = options[:access_token]
         message = options[:message]
 
         cmd = ['curl']
         cmd << 'https://notify-api.line.me/api/notify'
         cmd << '-X POST'
         cmd << "-H 'Content-Type: application/x-www-form-urlencoded'"
-        cmd << "-H 'Authorization: Bearer #{api_token}'"
+        cmd << "-H 'Authorization: Bearer #{access_token}'"
         cmd << "-d message='#{message}'"
-        sh cmd.join(' ')
-      end
+        sh cmd.join(' ')      end
 
       def self.description
         "You can use this action to send message via Line Notify"
@@ -36,11 +36,11 @@ module Fastlane
 
       def self.available_options
         [
-          FastlaneCore::ConfigItem.new(key: :api_token,
-                                       env_name: "LINE_NOTIFY_API_TOKEN", # The name of the environment variable
-                                       description: "API Token for LineNotify", # a short description of this parameter
+          FastlaneCore::ConfigItem.new(key: :access_token,
+                                       env_name: "LINE_NOTIFY_ACCESS_TOKEN", # The name of the environment variable
+                                       description: "Access Token for LineNotify", # a short description of this parameter
                                        verify_block: proc do |value|
-                                          UI.user_error!("No API token for Line Notify given, pass using `api_token: 'token'`") unless (value and not value.empty?)
+                                          UI.user_error!("No API token for Line Notify given, pass using `access_token: 'token'`") unless (value and not value.empty?)
                                           # UI.user_error!("Couldn't find file at path '#{value}'") unless File.exist?(value)
                                        end),
            FastlaneCore::ConfigItem.new(key: :message,
