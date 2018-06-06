@@ -1,0 +1,1 @@
+fastlane-plugin-line-notify
