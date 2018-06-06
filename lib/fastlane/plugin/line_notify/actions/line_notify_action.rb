@@ -6,8 +6,8 @@ module Fastlane
     class LineNotifyAction < Action
       def self.run(params)
         
-        access_token = options[:access_token]
-        message = options[:message]
+        access_token = params[:access_token]
+        message = params[:message]
 
         cmd = ['curl']
         cmd << 'https://notify-api.line.me/api/notify'
