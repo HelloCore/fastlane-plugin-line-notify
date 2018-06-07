@@ -23,10 +23,10 @@ To be able to send message to Line Notify
 
 ```ruby
   line_notify(
-    access_token: 'Your Access Token',
-    message: 'Hello World', #Optional String
-    sticker_package_id: '1', #Optional String
-    sticker_id: '133', #Optional String
+    access_token: "Your Access Token",
+    message: "Hello World 🌤", #Optional String
+    sticker_package_id: "1", #Optional String
+    sticker_id: "133", #Optional String
     image_full_size: nil, #Optional **URL** String
     image_thumbnail: nil, #Optional **URL** String
   )
