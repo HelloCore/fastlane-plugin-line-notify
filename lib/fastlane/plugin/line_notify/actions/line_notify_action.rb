@@ -8,7 +8,8 @@ module Fastlane
       def self.run(params)
         
         access_token = params[:access_token]
-        
+        params[:message] = params[:message].to_s || ''
+
         uri = URI.parse('https://notify-api.line.me/api/notify')
         Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |req|
           request = Net::HTTP::Post.new(uri)
