@@ -11,6 +11,7 @@ fastlane add_plugin line_notify
 ```
 
 You can generate access token from **My Page** https://notify-bot.line.me/my/
+Check out the sticker list. https://devdocs.line.me/files/sticker_list.pdf
 
 ## About line_notify
 
@@ -22,8 +23,10 @@ To be able to send message to Line Notify
 
 ```ruby
   line_notify(
-      access_token: 'Your Access Token',
-      message: 'Hello World'
+    access_token: 'Your Access Token',
+    message: 'Hello World'
+    sticker_package_id: '1',
+    sticker_id: '133'
   )
 ```
 
@@ -40,6 +43,7 @@ rake
 ```
 
 To automatically fix many of the styling issues, use
+
 ```
 rubocop -a
 ```
