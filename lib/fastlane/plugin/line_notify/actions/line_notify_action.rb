@@ -1,4 +1,5 @@
 require 'fastlane/action'
+require 'net/https'
 require_relative '../helper/line_notify_helper'
 
 module Fastlane
@@ -7,15 +8,29 @@ module Fastlane
       def self.run(params)
         
         access_token = params[:access_token]
-        message = params[:message]
+        
+        uri = URI.parse('https://notify-api.line.me/api/notify')
+        Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |req|
+          request = Net::HTTP::Post.new(uri)
+          request["Authorization"] = "Bearer #{access_token}"
+          request.set_form_data({
+            message: params[:message],
+            imageThumbnail: params[:image_thumbnail],
+            imageFullsize: params[:image_full_size],
+            stickerPackageId: params[:sticker_package_id],
+            stickerId: params[:sticker_id],
+          })
 
-        cmd = ['curl']
-        cmd << 'https://notify-api.line.me/api/notify'
-        cmd << '-X POST'
-        cmd << "-H 'Content-Type: application/x-www-form-urlencoded'"
-        cmd << "-H 'Authorization: Bearer #{access_token}'"
-        cmd << "-d message='#{message}'"
-        sh cmd.join(' ')      end
+          req.request(request)          
+        end
+      end
+        # cmd = ['curl']
+        # cmd << 'https://notify-api.line.me/api/notify'
+        # cmd << '-X POST'
+        # cmd << "-H 'Content-Type: application/x-www-form-urlencoded'"
+        # cmd << "-H 'Authorization: Bearer #{access_token}'"
+        # cmd << "-d message='#{message}'"
+        # sh cmd.join(' ')      end
 
       def self.description
         "You can use this action to send message via Line Notify"
@@ -45,7 +60,29 @@ module Fastlane
                                        end),
            FastlaneCore::ConfigItem.new(key: :message,
                                        env_name: "LINE_NOTIFY_MESSAGE",
-                                       description: "The message that should be displayed on Line Notify"),
+                                       description: "The message that should be displayed on Line Notify",
+                                       optional: true),                                       
+
+           FastlaneCore::ConfigItem.new(key: :image_thumbnail,
+                                        env_name: "LINE_NOTIFY_IMAGE_THUMBNAIL",
+                                        description: "imageThumbnail Maximum size of 240×240px JPEG",
+                                        optional: true),
+      
+           FastlaneCore::ConfigItem.new(key: :image_full_size,
+                                        env_name: "LINE_NOTIFY_IMAGE_FULL_SIZE",
+                                        description: "imageFullsize Maximum size of 1024×1024px JPEG",
+                                        optional: true),
+           
+           FastlaneCore::ConfigItem.new(key: :sticker_package_id,
+                                        env_name: "LINE_NOTIFY_STICKER_PACKAGE_ID",
+                                        description: "stickerPackageId Package ID",
+                                        optional: true),
+
+           FastlaneCore::ConfigItem.new(key: :sticker_id,
+                                        env_name: "LINE_NOTIFY_STICKER_ID",
+                                        description: "stickerId Sticker ID",
+                                        optional: true),
+
         ]
       end
 

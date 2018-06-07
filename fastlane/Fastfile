@@ -1,6 +1,8 @@
 lane :test do
   line_notify(
-      access_token: 'Your Access Token',
-      message: 'Hello World'
-    )
+    access_token: 'Your Access Token',
+    message: 'Hello World'
+    sticker_package_id: '1',
+    sticker_id: '133'
+  )
 end
